@@ -1,0 +1,17 @@
+.full-height.center-vertical
+  %h1= title
+
+  = form_for @user do |f|
+    .form-group.col-sm-4.col-sm-offset-4
+      = f.label :email
+      = f.text_field :email, id: :email, class: 'form-control'
+
+    .col-sm-2.col-sm-offset-5
+      %img#image_display.img-thumbnail.img-responsive.hidden
+      = f.hidden_field :image, id: :image
+
+    #image-select-group.form-group.col-sm-4.col-sm-offset-4
+      = f.label :image_select
+      = f.file_field :image_select, id: :image_select, class: 'btn btn-sm btn-default'
+
+    = submit_tag 'Submit', class: 'col-sm-4 col-sm-offset-4 btn btn-primary', disabled: true
