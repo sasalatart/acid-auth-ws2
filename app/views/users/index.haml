@@ -1,1 +1,8 @@
-%h1= "Usuarios: #{User.all.count}"
+%h1 Usuarios
+
+= render partial: 'layouts/pagination', locals: { collection: @users }
+
+.flex-wrap
+  = render @users
+
+= render partial: 'layouts/pagination', locals: { collection: @users }

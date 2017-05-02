@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update]
 
+  def index
+    @users = User.paginate(page: params[:page])
+  end
+
   def new
     @user = User.new
   end

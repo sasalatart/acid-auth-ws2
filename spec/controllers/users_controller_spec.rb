@@ -1,6 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
+  describe 'GET index' do
+    before { get :index }
+
+    it 'assigns paginated users' do
+      expect(assigns(:users)).to eq(User.paginate(page: 1))
+
+      get :index, params: { page: 2 }
+      expect(assigns(:users)).to eq(User.paginate(page: 2))
+    end
+
+    it 'renders the index action' do
+      expect(response).to render_template(:index)
+    end
+  end
+
   describe 'GET new' do
     it 'assigns a new @user' do
       get :new

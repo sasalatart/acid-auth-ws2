@@ -1,4 +1,4 @@
-h1 {
+h1, h5 {
   text-align: center;
 }
 
@@ -12,8 +12,27 @@ h1 {
   align-items: center;
 }
 
+.aligner-space-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .center-vertical {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user.well {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 200px;
+  margin: 15px;
 }

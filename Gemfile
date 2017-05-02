@@ -9,6 +9,8 @@ gem 'rails', '~> 5.1.0'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 
+gem 'will_paginate-bootstrap'
+
 gem 'annotate'
 gem 'hirb'
 
