@@ -39,6 +39,7 @@ RSpec.describe User, type: :model do
 
   context 'given different email scenarios' do
     let(:user) { build :user }
+
     valid_emails = ['foo@bar.baz', 'ignacio@acid.cl']
     invalid_emails = ['foo', 'foo@', 'foo@bar', '@bar']
 
@@ -54,6 +55,16 @@ RSpec.describe User, type: :model do
         user.email = email
         expect(user).to_not be_valid
       end
+    end
+  end
+
+  context 'when a user with the same email already exists' do
+    let(:user) { build :user }
+
+    before { FactoryGirl.create(:user) }
+
+    it 'should not let the second one be valid' do
+      expect(user).to_not be_valid
     end
   end
 end
