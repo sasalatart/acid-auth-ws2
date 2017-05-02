@@ -36,6 +36,11 @@ class UsersController < ApplicationController
     redirect_to users_path, notice: 'Se eliminó al usuario exitosamente.'
   end
 
+  def verify
+    res = VerificationService.check_biometry(params[:email], params[:image])
+    render json: { message: res[:message] }, status: res[:status]
+  end
+
   private
 
   def set_user
