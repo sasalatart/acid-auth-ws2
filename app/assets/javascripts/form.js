@@ -25,7 +25,9 @@ $(function() {
   }
 
   function filePresent() {
-    return $imageSelect[0].files && $imageSelect[0].files[0];
+    var inImageSelect = $imageSelect[0].files && $imageSelect[0].files[0];
+    var inImageInput = $imageInput.val() != null && $imageInput.val() != '';
+    return inImageSelect || inImageInput;
   }
 
   function emailPresent() {
