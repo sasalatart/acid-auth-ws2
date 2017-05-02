@@ -35,4 +35,59 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to render_template(:new)
     end
   end
+
+  describe 'GET edit' do
+    let(:user) { create :user }
+
+    before do
+      get :edit, params: { id: user.id }
+    end
+
+    it 'assigns the user obtained from the params' do
+      expect(assigns(:user)).to eq(user)
+    end
+
+    it 'renders the edit action' do
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'PUT update' do
+    let(:user) { create :user }
+
+    context 'when changing the image' do
+      before do
+        @image = 'another-base64-encoded'
+        put :update, params: { id: user.id, user: { image: @image } }
+      end
+
+      it 'assigns the user obtained from the params' do
+        expect(assigns(:user).id).to eq(user.id)
+      end
+
+      it 'updates the user with the given image' do
+        expect(assigns(:user).image).to eq(@image)
+      end
+
+      it 'redirects to the index action if it succeeds' do
+        expect(response).to redirect_to(users_path)
+      end
+
+      it 'does not update the user if no image is given', skip_before: true do
+        request = -> { put :update, params: { id: user.id } }
+        expect(request).to raise_exception(ActionController::ParameterMissing)
+      end
+    end
+
+    context 'when changing the email' do
+      before do
+        params = { email: 'new-email@acid.cl', image: user.image }
+        put :update, params: { id: user.id, user: params }
+      end
+
+      it 'does not update the email' do
+        expect(assigns(:user).email).to eq(user.email)
+      end
+    end
+  end
 end

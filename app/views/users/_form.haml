@@ -4,10 +4,13 @@
   = form_for @user do |f|
     .form-group.col-sm-4.col-sm-offset-4
       = f.label :email
-      = f.text_field :email, id: :email, class: 'form-control'
+      = f.text_field :email, id: :email, class: 'form-control', disabled: !@user.new_record?
 
     .col-sm-2.col-sm-offset-5
-      %img#image_display.img-thumbnail.img-responsive.hidden
+      - if @user.image&.present?
+        %img#image_display.img-thumbnail.img-responsive{ src: @user.image }
+      - else
+        %img#image_display.img-thumbnail.img-responsive.hidden
       = f.hidden_field :image, id: :image
 
     #image-select-group.form-group.col-sm-4.col-sm-offset-4
