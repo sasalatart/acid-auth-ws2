@@ -33,8 +33,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    flash.now[:notice] = 'Se eliminó al usuario exitosamente.'
-    render :index
+    redirect_to users_path, notice: 'Se eliminó al usuario exitosamente.'
   end
 
   private

@@ -12,42 +12,62 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'renders the index action' do
+      expect(response.status).to eq(200)
       expect(response).to render_template(:index)
     end
   end
 
   describe 'GET new' do
+    before { get :new }
+
     it 'assigns a new @user' do
-      get :new
       expect(assigns(:user)).to be_a_new(User)
+    end
+
+    it 'renders the new action' do
+      expect(response.status).to eq(200)
+      expect(response).to render_template(:new)
     end
   end
 
   describe 'POST create' do
-    let(:val_user) { build :user }
-    let(:inv_user) { build :user, email: nil }
+    context 'with valid parameters' do
+      let(:user) { build :user }
 
-    before do
-      @val_req = -> { post :create, params: { user: val_user.attributes } }
-      @inv_req = -> { post :create, params: { user: inv_user.attributes } }
+      before { @req = -> { post :create, params: { user: user.attributes } } }
+
+      it 'creates a new user when given valid parameters' do
+        expect(@req).to change(User, :count).by(1)
+      end
+
+      it 'redirects to the index action if it succeeds' do
+        @req.call
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to(users_path)
+      end
     end
 
-    it 'creates a new user when given valid parameters' do
-      expect(@val_req).to change(User, :count).by(1)
-    end
+    context 'with missing parameters' do
+      let(:user_no_email) { build :user, email: nil }
+      let(:user_no_image) { build :user, image: nil }
 
-    it 'redirects to the index action if it succeeds' do
-      @val_req.call
-      expect(response).to redirect_to(users_path)
-    end
+      before do
+        @req_no_email = -> { post :create, params: { user: user_no_email.attributes } }
+        @req_no_image = -> { post :create, params: { user: user_no_image.attributes } }
+      end
 
-    it 'does not create a user when given invalid parameters' do
-      expect(@inv_req).to change(User, :count).by(0)
-    end
+      it 'does not create a user with missing parameters' do
+        expect(@req_no_email).to change(User, :count).by(0)
+        expect(@req_no_image).to change(User, :count).by(0)
+      end
 
-    it 're-renders the new action if it fails' do
-      @inv_req.call
-      expect(response).to render_template(:new)
+      it 're-renders the new action if it fails' do
+        @req_no_email.call
+        expect(response).to render_template(:new)
+
+        @req_no_image.call
+        expect(response).to render_template(:new)
+      end
     end
   end
 
@@ -63,12 +83,15 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'renders the edit action' do
+      expect(response.status).to eq(200)
       expect(response).to render_template(:edit)
     end
   end
 
   describe 'PUT update' do
     let(:user) { create :user }
+
+    after { user.destroy }
 
     context 'when changing the image' do
       before do
@@ -85,6 +108,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'redirects to the index action if it succeeds' do
+        expect(response.status).to eq(302)
         expect(response).to redirect_to(users_path)
       end
 
@@ -116,9 +140,9 @@ RSpec.describe UsersController, type: :controller do
       expect(User.exists?(user.id)).to eq(false)
     end
 
-    it 'renders the index action' do
-      expect(response.status).to eq(200)
-      expect(response).to render_template(:index)
+    it 'redirects to the index action if it succeeds' do
+      expect(response.status).to eq(302)
+      expect(response).to redirect_to(users_path)
     end
   end
 end
