@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update]
+  before_action :set_user, only: [:edit, :update, :destroy]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -29,6 +29,12 @@ class UsersController < ApplicationController
       flash.now[:error] = 'Hubo un error al actualizar el usuario.'
       render :edit
     end
+  end
+
+  def destroy
+    @user.destroy
+    flash.now[:notice] = 'Se eliminó al usuario exitosamente.'
+    render :index
   end
 
   private

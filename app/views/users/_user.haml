@@ -4,4 +4,4 @@
     %img.thumbnail.img-responsive{ src: user.image }
     .aligner-space-around
       = link_to 'Editar', edit_user_path(user), class: 'btn btn-xs btn-warning'
-      = link_to 'Eliminar', '#', class: 'btn btn-xs btn-danger'
+      = link_to 'Eliminar', user_path(user), class: 'btn btn-xs btn-danger', method: :delete

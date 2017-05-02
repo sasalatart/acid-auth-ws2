@@ -105,4 +105,20 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE user', type: :request do
+    let(:user) { create :user }
+
+    before { delete user_path(user) }
+    after { user.destroy }
+
+    it 'destroys the user' do
+      expect(User.exists?(user.id)).to eq(false)
+    end
+
+    it 'renders the index action' do
+      expect(response.status).to eq(200)
+      expect(response).to render_template(:index)
+    end
+  end
 end
