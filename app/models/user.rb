@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :email, presence: true,
                     uniqueness: true,
                     format: { with: VALID_EMAIL_REGEX,
-                              message: 'debe ser un email' }
+                              message: 'debe tener el formato correcto' }
 
   validates :image, presence: true
 end
