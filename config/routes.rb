@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   VALID_EMAIL_REGEX = /([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/
 
+  root to: 'users#index'
+
   post 'users/verify/:email', to: 'users#verify',
                               constraints: { email: VALID_EMAIL_REGEX },
                               via: :post, format: false
