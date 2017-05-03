@@ -39,9 +39,8 @@ class UsersController < ApplicationController
   def verify
     res = VerificationService.check_biometry(params[:email], params[:image])
 
-    if res[:status] == 200
-      UserMailer.notify_login(params[:email], request.user_agent).deliver
-    end
+    success = res[:status] == 200
+    UserMailer.notify_login(params[:email], request.user_agent, success).deliver
 
     render json: { message: res[:message] }, status: res[:status]
   end

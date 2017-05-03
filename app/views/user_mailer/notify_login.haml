@@ -1,6 +1,9 @@
 %p Estimado/a:
 
-%p Se ha registrado un nuevo inicio de sesión a su cuenta en Acid.
+- if @success
+  %p Se ha registrado un nuevo inicio de sesión a su cuenta en Acid.
+- else
+  %p Alguien falló al intentar iniciar sesión a su cuenta en Acid.
 
 %p Los datos del User Agent son:
 

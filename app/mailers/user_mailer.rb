@@ -1,7 +1,10 @@
 class UserMailer < ApplicationMailer
-  def notify_login(email, user_agent_string)
+  def notify_login(email, user_agent_string, success)
     @user_agent = UserAgent.parse(user_agent_string)
+    @success = success
 
-    mail to: email, subject: 'Nuevo inicio de sesión en Acid'
+    subject_header = success ? 'Nuevo ' : 'Intento fallido de '
+
+    mail to: email, subject: "#{subject_header} inicio de sesión en Acid"
   end
 end
