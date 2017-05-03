@@ -27,5 +27,7 @@ module AcidAuthWs2
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.i18n.available_locales = :es
   end
 end

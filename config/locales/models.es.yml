@@ -1,0 +1,7 @@
+es:
+  activerecord:
+    models:
+      user: Usuario
+    attributes:
+      user:
+        image: Imagen
