@@ -14,7 +14,7 @@
 #
 
 Rails.application.routes.draw do
-  VALID_EMAIL_REGEX = /([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/
+  VALID_EMAIL_REGEX = /([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+/i
 
   root to: 'users#index'
 

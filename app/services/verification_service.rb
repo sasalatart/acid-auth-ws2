@@ -1,6 +1,6 @@
 module VerificationService
   def self.check_biometry(email, image)
-    user = User.find_by(email: email, image: image)
+    user = User.find_by(email: email&.downcase, image: image)
 
     if user && rand(100) > 10
       { status: 200, message: 'OK' }

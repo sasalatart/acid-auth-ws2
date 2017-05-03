@@ -10,6 +10,8 @@
 #
 
 class User < ApplicationRecord
+  before_validation :downcase_email
+
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
   validates :email, presence: true,
@@ -18,4 +20,10 @@ class User < ApplicationRecord
                               message: 'debe tener el formato correcto' }
 
   validates :image, presence: true
+
+  private
+
+  def downcase_email
+    self.email = self.email&.downcase
+  end
 end
