@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to users_path, notice: 'Usuario creado exitosamente.'
     else
-      flash.now[:error] = 'Hubo un error al crear el usuario.'
+      flash.now[:alert] = @user.human_errors
       render :new
     end
   end
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     if @user.update(update_params)
       redirect_to users_path, notice: 'Usuario actualizado exitosamente.'
     else
-      flash.now[:error] = 'Hubo un error al actualizar el usuario.'
+      flash.now[:alert] = @user.human_errors
       render :edit
     end
   end
