@@ -17,7 +17,7 @@ This application validates the match between an Acid user's login email and biom
 
 ## API
 
-##### Verify A User's Credentials
+#### Verify A User's Credentials
 
 Verifies if the submitted email and base64 encoded image match (10% failure chance simulated).
 
@@ -57,13 +57,13 @@ Verifies if the submitted email and base64 encoded image match (10% failure chan
       data: { image: 'base64-image' }
     }).done(function(response) {
       console.log(response);
-    }).fail(function() {
+    }).fail(function(response) {
       console.log(response);
     });
   });
   ```
 
-##### Users Index Page
+#### Users Index Page
 
 Shows the paginated list of users.
 
@@ -73,13 +73,13 @@ Shows the paginated list of users.
 
   - **page=[integer]**, user pagination index
 
-##### New User Page
+#### New User Page
 
 Shows the form for submitting new users.
 
 - **URL:** `GET /users/new`
 
-##### Create User
+#### Create User
 
 Creates a new user.
 
@@ -89,7 +89,7 @@ Creates a new user.
   - **email**: The user's email.
   - **image**: The user's base64 encoded image.
 
-##### Edit User Page
+#### Edit User Page
 
 Shows the form for editing a specific user.
 
@@ -98,7 +98,7 @@ Shows the form for editing a specific user.
 - **URL Params**
   - **id:** The `id` of the user to edit.
 
-##### Update User
+#### Update User
 
 Updates a user's base64 image.
 
@@ -110,7 +110,7 @@ Updates a user's base64 image.
 - **Data Params**
   - **image**: The user's new base64 encoded image.
 
-##### Delete User
+#### Delete User
 
 Deletes a user from the database.
 
