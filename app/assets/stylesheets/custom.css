@@ -1,5 +1,9 @@
-h1, h5 {
+h1, h3, h5 {
   text-align: center;
+}
+
+.itallics {
+  font-style: italic;
 }
 
 .full-height {

@@ -2,7 +2,10 @@
 
 = render partial: 'layouts/pagination', locals: { collection: @users }
 
-.flex-wrap
-  = render @users
+- if @users.any?
+  .flex-wrap
+    = render @users
+- else
+  %h3.itallics No hay usuarios
 
 = render partial: 'layouts/pagination', locals: { collection: @users }
