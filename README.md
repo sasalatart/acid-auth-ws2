@@ -21,9 +21,7 @@ This application validates the match between an Acid user's login email and biom
 
 Verifies if the submitted email and base64 encoded image match (10% failure chance simulated).
 
-- **URL:**
-
-  `POST /verify_user/:email`
+- **URL:** `POST /verify_user/:email`
 
 - **URL Params**
   - **email**: The user's email.
@@ -53,14 +51,13 @@ Verifies if the submitted email and base64 encoded image match (10% failure chan
 
   ```javascript
     $.post({
-      url: '/verify_user/an-email',
+      url: 'application-host/verify_user/an-email',
       data: { image: 'base64-image' }
     }).done(function(response) {
       console.log(response);
     }).fail(function(response) {
       console.log(response);
     });
-  });
   ```
 
 #### Users Index Page
@@ -70,7 +67,6 @@ Shows the paginated list of users.
 - **URL:** `GET /`
 
 - **Query String**
-
   - **page=[integer]**, user pagination index
 
 #### New User Page
@@ -117,7 +113,7 @@ Deletes a user from the database.
 - **URL:** `DELETE /users/:id`
 
 - **URL Params**
-  - **id:** The `id` of the user to update.
+  - **id:** The `id` of the user to delete.
 
 ## Development Setup
 
