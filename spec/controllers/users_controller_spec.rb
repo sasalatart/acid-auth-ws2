@@ -145,4 +145,49 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to redirect_to(users_path)
     end
   end
+
+  describe 'POST verify' do
+    let(:user) { create :user }
+
+    before do
+      @verify = lambda do |email, image|
+        post :verify, params: { email: email, image: image }
+      end
+    end
+
+    context 'when incorrect credentials are given' do
+      it 'shows a 401 status' do
+        @verify.call(user.email, 'another-image')
+        expect(response.status).to eq(401)
+
+        @verify.call('another@email.cl', user.image)
+        expect(response.status).to eq(401)
+      end
+
+      it 'shows a "No Autorizado" message' do
+        @verify.call(user.email, 'another-image')
+        body = JSON.parse(response.body)
+        expect(body['message']).to eq('No Autorizado')
+
+        @verify.call('another@email.cl', user.image)
+        body = JSON.parse(response.body)
+        expect(body['message']).to eq('No Autorizado')
+      end
+    end
+
+    # the verify method has a 10% chance to fail, so its status could be
+    # either 200 ('OK') or 401 ('No Autorizado')
+    context 'when correct credentials are given' do
+      it 'shows either a 200 or a 401 status' do
+        @verify.call(user.email, user.image)
+        expect([200, 401]).to include(response.status)
+      end
+
+      it 'shows either a "OK" or a "No Autorizado" message' do
+        @verify.call(user.email, user.image)
+        body = JSON.parse(response.body)
+        expect(['OK', 'No Autorizado']).to include(body['message'])
+      end
+    end
+  end
 end
