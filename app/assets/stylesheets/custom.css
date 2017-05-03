@@ -40,3 +40,8 @@ h1, h3, h5 {
   width: 200px;
   margin: 15px;
 }
+
+.user.well h5 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
